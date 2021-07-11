@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:background="@drawable/poerty_background"
+    tools:context=".PoetryActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/dark_blue"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@color/pink"></androidx.appcompat.widget.Toolbar>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/poetryRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_marginTop="128dp" />
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/right"
+        android:layout_marginRight="100dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentRight="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/left_arrow" />
+
+    <ImageView
+        android:id="@+id/left"
+        android:layout_marginLeft="100dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentLeft="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/right_arrow" />
+
+
+</RelativeLayout>
+
+
+</LinearLayout>
