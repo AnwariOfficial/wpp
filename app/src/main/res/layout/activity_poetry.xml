@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    android:background="@drawable/poerty_background"
+    android:background="@drawable/poetry_background"
     tools:context=".PoetryActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolBar"
@@ -15,35 +15,31 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@color/pink"></androidx.appcompat.widget.Toolbar>
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_gravity="right"
+        android:id="@+id/imageView"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="32dp"
+        android:layout_below="@id/toolBar"
+        android:src="@drawable/photo_placeholder" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Poetry"
+        android:textSize="24dp"
+        android:textColor="@color/pink"
+        android:textStyle="bold"
+        android:layout_marginLeft="16dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/poetryRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_marginTop="128dp" />
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <ImageView
-        android:id="@+id/right"
-        android:layout_marginRight="100dp"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_alignParentRight="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/left_arrow" />
-
-    <ImageView
-        android:id="@+id/left"
-        android:layout_marginLeft="100dp"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_alignParentLeft="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/right_arrow" />
-
-
-</RelativeLayout>
-
+        android:layout_height="430dp"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        android:layout_marginTop="8dp" />
 
 </LinearLayout>

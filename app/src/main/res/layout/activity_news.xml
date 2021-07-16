@@ -14,7 +14,19 @@
         android:background="@color/white"
         android:backgroundTint="@color/dark_blue"
         app:navigationIcon="@color/pink"></androidx.appcompat.widget.Toolbar>
-<View
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_gravity="right"
+        android:id="@+id/imageView"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="32dp"
+        android:layout_below="@id/toolBar"
+        android:src="@drawable/photo_placeholder" />
+
+    <View
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_below="@+id/toolBar"
@@ -23,7 +35,7 @@
     <TextView
         android:background="@color/dark_blue"
         android:id="@+id/news_title_1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:text="News"

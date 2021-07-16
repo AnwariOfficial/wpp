@@ -47,6 +47,7 @@ public class PoetryRecyclerAdapter extends RecyclerView.Adapter<PoetryRecyclerAd
        holder.userName.setText(idea.getUserName());
        holder.date.setText(String.valueOf(idea.getPostDate()));
        holder.ideaPost.setText(idea.getIdeaPost());
+      // holder.author.setText(idea.getAuthor());
     }
 
     // total number of rows
@@ -61,13 +62,14 @@ public class PoetryRecyclerAdapter extends RecyclerView.Adapter<PoetryRecyclerAd
         TextView userName;
         TextView date;
         TextView ideaPost;
+        //TextView author;
 
         ViewHolder(View itemView) {
             super(itemView);
             userName = itemView.findViewById(R.id.userName);
             date = itemView.findViewById(R.id.date);
             ideaPost = itemView.findViewById(R.id.poem);
-
+           // author = itemView.findViewById(R.id.author);
             itemView.setOnClickListener(this);
         }
 

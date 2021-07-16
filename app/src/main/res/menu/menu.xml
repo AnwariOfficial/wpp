@@ -5,6 +5,7 @@
     >
 <group android:checkableBehavior="single" >
     <item android:id="@+id/home"
+
         android:icon="@drawable/ic_baseline_account_circle_24"
         android:title="News"
         />
@@ -12,7 +13,7 @@
         android:icon="@drawable/ic_baseline_ad_units_24"
         android:title="Ideas"
         />
-</group>
+
     <item android:id="@+id/survey"
         android:icon="@drawable/ic_baseline_lock_24"
         android:title="Survey"
@@ -21,15 +22,28 @@
         android:icon="@drawable/ic_baseline_lock_24"
         android:title="Entertainment"
     />
-    <item android:id="@+id/about"
-        android:icon="@drawable/ic_baseline_lock_24"
-        android:title="About"
-    />
 
-    <item android:id="@+id/logout"
-        android:icon="@drawable/ic_baseline_lock_24"
-        android:title="Logout"
-        />
+    <item android:title="Profile">
+        <menu>
+            <item android:id="@+id/about"
+                android:icon="@drawable/ic_baseline_lock_24"
+                android:title="About"
+                />
+        </menu>
+
+    </item>
+    <item android:title="Profile"
+        android:iconTint="@color/yellow"
+        >
+        <menu>
+            <item android:id="@+id/logout"
+                android:icon="@drawable/ic_baseline_lock_24"
+                android:title="Logout"
+                />
+        </menu>
+
+    </item>
 
 
+</group>
 </menu>

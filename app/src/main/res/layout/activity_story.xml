@@ -14,6 +14,16 @@
         android:background="@color/dark_blue"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@color/pink"/>
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_gravity="right"
+        android:id="@+id/imageView"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="32dp"
+        android:layout_below="@id/toolBar"
+        android:src="@drawable/photo_placeholder" />
 
     <TextView
         android:id="@+id/title"

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
@@ -27,6 +28,7 @@ public class GalleryActivity extends AppCompatActivity {
        // setContentView(R.layout.activity_gallery);
         setContentView(R.layout.gallery_navigation);
         Toolbar toolbar = findViewById(R.id.toolBar);
+        setSupportActionBar(toolbar);
         NavigationView navigationView = findViewById(R.id.navigation_view);
         DrawerLayout drawerLayout = findViewById(R.id.navigation_layout);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.stopen, R.string.stclose);
@@ -71,5 +73,20 @@ public class GalleryActivity extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.back_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_back:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

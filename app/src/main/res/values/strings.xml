@@ -44,5 +44,8 @@ Tick tock...tick tock...
 How I wish I could control this clock.
 
 </string>
+    <string name="p_login">د ننه کیدل</string>
+    <string name="d_login">داخل شدن</string>
+    <string name="e_login">Login</string>
 
 </resources>

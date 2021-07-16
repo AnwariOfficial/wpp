@@ -6,6 +6,15 @@ public class Poetry {
     private String userName;
     private Date postDate;
     private String ideaPost;
+    private String author;
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
     public String getUserName() {
         return userName;

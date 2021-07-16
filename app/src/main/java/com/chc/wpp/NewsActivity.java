@@ -3,6 +3,7 @@ package com.chc.wpp;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -69,6 +70,7 @@ public class NewsActivity extends AppCompatActivity implements NewsRecyclerAdapt
 
 
 
+
         // data to populate the RecyclerView with
         ArrayList<News> animalNames = new ArrayList<>();
         News n1 = new News();
@@ -118,6 +120,22 @@ public class NewsActivity extends AppCompatActivity implements NewsRecyclerAdapt
            // Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.back_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_back:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
 
 }

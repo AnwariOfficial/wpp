@@ -12,7 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -23,13 +26,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class PoetryActivity extends AppCompatActivity {
+public class PoetryActivity extends AppCompatActivity implements PoetryRecyclerAdapter.ItemClickListener {
     PoetryRecyclerAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.poetry_navigation);
         Toolbar toolbar = findViewById(R.id.toolBar);
+        setSupportActionBar(toolbar);
         NavigationView navigationView = findViewById(R.id.navigation_view);
         DrawerLayout drawerLayout = findViewById(R.id.navigation_layout);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.stopen, R.string.stclose);
@@ -47,6 +51,7 @@ public class PoetryActivity extends AppCompatActivity {
         poetry.setPostDate(date);
 
         poetry.setIdeaPost(getResources().getString(R.string.lgContentNews));
+        poetry.setAuthor("Abdul Qahar Sadiqi");
 
         Poetry poetry1 = new Poetry();
         poetry1.setUserName("Najibullah Anwari");
@@ -55,6 +60,7 @@ public class PoetryActivity extends AppCompatActivity {
          strDate = dateFormat.format(date);
         poetry1.setPostDate(date);
         poetry1.setIdeaPost(getResources().getString(R.string.lgContentNews));
+        poetry1.setAuthor("Abdul Qahar Sadiqi");
 
         Poetry poetry2 = new Poetry();
         poetry2.setUserName("Najibullah Anwari");
@@ -63,6 +69,7 @@ public class PoetryActivity extends AppCompatActivity {
         strDate = dateFormat.format(date);
         poetry2.setPostDate(date);
         poetry2.setIdeaPost(getResources().getString(R.string.lgContentNews));
+        poetry2.setAuthor("Abdul Qahar Sadiqi");
 
         Poetry poetry3 = new Poetry();
         poetry3.setUserName("Najibullah Anwari");
@@ -70,7 +77,8 @@ public class PoetryActivity extends AppCompatActivity {
         dateFormat = new SimpleDateFormat("yyyy-mm-dd");
         strDate = dateFormat.format(date);
         poetry3.setPostDate(date);
-        poetry.setIdeaPost(getResources().getString(R.string.lgContentNews));
+        poetry3.setAuthor("Abdul Qahar Sadiqi");
+        poetry3.setIdeaPost(getResources().getString(R.string.lgContentNews));
 
         newsList.add(poetry);
         newsList.add(poetry1);
@@ -84,12 +92,11 @@ public class PoetryActivity extends AppCompatActivity {
         newsList.add(poetry3);
 
         RecyclerView recyclerView = findViewById(R.id.poetryRecyclerView);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(PoetryActivity.this,RecyclerView.HORIZONTAL,false);
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator( new DefaultItemAnimator());
 
-
         adapter = new PoetryRecyclerAdapter(this, newsList);
+        adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -115,5 +122,33 @@ public class PoetryActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+    }
+    @Override
+    public void onItemClick(View view, int position) {
+        Intent intent = new Intent(PoetryActivity.this,PoetryContentActivity.class);
+        Poetry news = adapter.getItem(position);
+        intent.putExtra("username",news.getUserName());
+        intent.putExtra("date", news.getPostDate().toString());
+        intent.putExtra("poetry",news.getIdeaPost());
+        intent.putExtra("author",news.getAuthor());
+        startActivity(intent);
+         //Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.back_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_back:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
