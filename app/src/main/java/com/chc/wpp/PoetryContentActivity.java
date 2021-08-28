@@ -6,24 +6,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import com.google.mlkit.nl.languageid.LanguageIdentification;
+import com.google.mlkit.nl.languageid.LanguageIdentifier;
 
 public class PoetryContentActivity extends AppCompatActivity {
     PoetryRecyclerAdapter adapter;
@@ -31,13 +28,27 @@ public class PoetryContentActivity extends AppCompatActivity {
     TextView date;
     TextView cont_poetry;
     TextView cont_author;
+    SharedPreferences sharedPref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPref = getSharedPreferences("languagePref", Context.MODE_PRIVATE);
+        String defaultValue = getResources().getString(R.string.defautllanguage);
+        String language = sharedPref.getString(getString(R.string.language), defaultValue);
+        //super.onCreate(savedInstanceState);
+        if(language.equals("pashto")){
+            setContentView(R.layout.pashto_poertry_content_navigation);
+        }else if (language.equals("dari")){
+            setContentView(R.layout.dari_poertry_content_navigation);
+        }
+        else{
+            setContentView(R.layout.english_poertry_content_navigation);
+        }
         //setContentView(R.layout.activity_poetry_content);
-        setContentView(R.layout.poertry_content_navigation);
+        //setContentView(R.layout.english_poertry_content_navigation);
         Toolbar toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         NavigationView navigationView = findViewById(R.id.navigation_view);
         DrawerLayout drawerLayout = findViewById(R.id.navigation_layout);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.stopen, R.string.stclose);
@@ -55,7 +66,33 @@ public class PoetryContentActivity extends AppCompatActivity {
         date = findViewById(R.id.date);
         cont_poetry = findViewById(R.id.content_poetry);
         cont_author = findViewById(R.id.content_author);
+        LanguageIdentifier languageIdentifier =
+                LanguageIdentification.getClient();
+        languageIdentifier.identifyLanguage(poetry)
+                .addOnSuccessListener(
+                        new OnSuccessListener<String>() {
+                            @Override
+                            public void onSuccess(String languageCode) {
+                                if (languageCode.equals("ps") || languageCode.equals("fa")) {
+                                    cont_poetry.setTextDirection(View.TEXT_DIRECTION_RTL);
+                                    cont_poetry.setTextDirection(View.LAYOUT_DIRECTION_RTL);
+                                    cont_poetry.setPadding(0,0,8,0);
 
+                                } else if(languageCode.equals("en")) {
+                                    cont_poetry.setTextDirection(View.TEXT_DIRECTION_LTR);
+                                    cont_poetry.setTextDirection(View.LAYOUT_DIRECTION_LTR);
+                                    cont_poetry.setPadding(8,0,0,0);
+
+                                }
+                            }
+                        })
+                .addOnFailureListener(
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure( Exception e) {
+                                System.out.println("Failure Listiner");
+                            }
+                        });
         username.setText(title);
         date.setText(content);
         cont_poetry.setText(poetry);
@@ -90,7 +127,18 @@ public class PoetryContentActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.back_menu, menu);
+        sharedPref = getSharedPreferences("languagePref",Context.MODE_PRIVATE);
+        String defaultValue = getResources().getString(R.string.defautllanguage);
+        String language = sharedPref.getString(getString(R.string.language), defaultValue);
+        if(language.equals("pashto")){
+            getMenuInflater().inflate(R.menu.p_back_menu, menu);
+        }else if (language.equals("dari")){
+            getMenuInflater().inflate(R.menu.p_back_menu, menu);
+        }
+        else{
+            getMenuInflater().inflate(R.menu.back_menu, menu);
+        }
+
         return true;
     }
     @Override

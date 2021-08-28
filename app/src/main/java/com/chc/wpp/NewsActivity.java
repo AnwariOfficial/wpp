@@ -1,40 +1,55 @@
 package com.chc.wpp;
 
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
+import com.google.mlkit.nl.languageid.LanguageIdentification;
+import com.google.mlkit.nl.languageid.LanguageIdentifier;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class NewsActivity extends AppCompatActivity implements NewsRecyclerAdapter.ItemClickListener{
-
+    SharedPreferences sharedPref;
     NewsRecyclerAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //  setContentView(R.layout.activity_news);
-        setContentView(R.layout.navigation_layout);
+        sharedPref = getSharedPreferences("languagePref", Context.MODE_PRIVATE);
+        String defaultValue = getResources().getString(R.string.defautllanguage);
+        String language = sharedPref.getString(getString(R.string.language), defaultValue);
+        //super.onCreate(savedInstanceState);
+        if(language.equals("pashto")){
+            setContentView(R.layout.pashto_navigation_layout);
+        }else if (language.equals("dari")){
+            setContentView(R.layout.dari_navigation_layout);
+        }
+        else{
+            setContentView(R.layout.english_navigation_layout);
+        }
+        //setContentView(R.layout.english_navigation_layout);
         Toolbar toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         NavigationView navigationView = findViewById(R.id.navigation_view);
         DrawerLayout drawerLayout = findViewById(R.id.navigation_layout);
 
@@ -53,6 +68,7 @@ public class NewsActivity extends AppCompatActivity implements NewsRecyclerAdapt
                 }
                 else if(item.getItemId() == R.id.idea){
                     Intent intent = new Intent(NewsActivity.this,IdeasActivity.class);
+                    intent.putExtra("flag",true);
                     startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.entertainment){
@@ -63,23 +79,25 @@ public class NewsActivity extends AppCompatActivity implements NewsRecyclerAdapt
                     Intent intent = new Intent(NewsActivity.this,AboutActivity.class);
                     startActivity(intent);
                 }
+                else if(item.getItemId() == R.id.survey){
+                    Intent intent = new Intent(NewsActivity.this,SurveysActivity.class);
+                    startActivity(intent);
+                }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }
         });
 
 
-
-
         // data to populate the RecyclerView with
         ArrayList<News> animalNames = new ArrayList<>();
         News n1 = new News();
-        n1.setNews_content(getResources().getString(R.string.lgContentNews));
+        n1.setNews_content(getResources().getString(R.string.p_news_content));
         n1.setNews_image(R.drawable.news_image);
         n1.setNews_title("Afghanistan is developed country");
 
         News n2 = new News();
-        n2.setNews_content(getResources().getString(R.string.lgContentNews));
+        n2.setNews_content(getResources().getString(R.string.p_news_content));
         n2.setNews_image(R.drawable.news_image);
         n2.setNews_title("Afghanistan is developed country");
         News n3 = new News();
@@ -88,17 +106,15 @@ public class NewsActivity extends AppCompatActivity implements NewsRecyclerAdapt
         n3.setNews_image(R.drawable.anwari);
         n3.setNews_title("Afghanistan is developed country");
         News n4 = new News();
-        n4.setNews_content("Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add.\n" +
-                "        You can also type a keyword to search online for the video that best fits your document. Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add. You can also type a keyword to search online for the video that best fits your document.");
+        n4.setNews_content(getResources().getString(R.string.d_news_content));
         n4.setNews_image(R.drawable.anwari);
-        n4.setNews_title("Afghanistan is developed country");
+        n4.setNews_title(getResources().getString(R.string.d_heading));
 
         List<News> newsList = new ArrayList<>();
         newsList.add(n1);
         newsList.add(n2);
         newsList.add(n3);
         newsList.add(n4);
-
 
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.rvAnimals);
@@ -122,7 +138,18 @@ public class NewsActivity extends AppCompatActivity implements NewsRecyclerAdapt
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.back_menu, menu);
+        sharedPref = getSharedPreferences("languagePref",Context.MODE_PRIVATE);
+        String defaultValue = getResources().getString(R.string.defautllanguage);
+        String language = sharedPref.getString(getString(R.string.language), defaultValue);
+        if(language.equals("pashto")){
+            getMenuInflater().inflate(R.menu.p_back_menu, menu);
+        }else if (language.equals("dari")){
+            getMenuInflater().inflate(R.menu.p_back_menu, menu);
+        }
+        else{
+            getMenuInflater().inflate(R.menu.back_menu, menu);
+        }
+
         return true;
     }
     @Override
@@ -137,5 +164,12 @@ public class NewsActivity extends AppCompatActivity implements NewsRecyclerAdapt
     }
 
 
-
+    public void openBlogs(View view) {
+        Intent intent = new Intent(NewsActivity.this,BlogsActivity.class);
+        startActivity(intent);
+    }
+    public void openProfileActivity(View view) {
+        Intent intent = new Intent(NewsActivity.this,ProfileActivity.class);
+        startActivity(intent);
+    }
 }

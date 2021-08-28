@@ -10,25 +10,49 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GalleryActivity extends AppCompatActivity {
+public class GalleryActivity extends AppCompatActivity implements GalleryRecyclerAdapter.ItemClickListener{
     GalleryRecyclerAdapter adapter;
+    RecyclerView recyclerView;
+    SharedPreferences sharedPref;
+    String language;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        sharedPref = getSharedPreferences("languagePref", Context.MODE_PRIVATE);
+        String defaultValue = getResources().getString(R.string.defautllanguage);
+        String language = sharedPref.getString(getString(R.string.language), defaultValue);
+        //super.onCreate(savedInstanceState);
+        if(language.equals("pashto")){
+            setContentView(R.layout.pashto_gallery_navigation);
+            language = "pashto";
+        }else if (language.equals("dari")){
+            setContentView(R.layout.dari_gallery_navigation);
+            language = "dari";
+        }
+        else{
+            setContentView(R.layout.english_gallery_navigation);
+            language = "english";
+        }
+
        // setContentView(R.layout.activity_gallery);
-        setContentView(R.layout.gallery_navigation);
+       // setContentView(R.layout.english_gallery_navigation);
         Toolbar toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         NavigationView navigationView = findViewById(R.id.navigation_view);
         DrawerLayout drawerLayout = findViewById(R.id.navigation_layout);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.stopen, R.string.stclose);
@@ -40,13 +64,13 @@ public class GalleryActivity extends AppCompatActivity {
         photos.add(R.drawable.anwari);
         photos.add(R.drawable.anwari);
         photos.add(R.drawable.anwari);
-        RecyclerView recyclerView = findViewById(R.id.photoRecyclerView);
+         recyclerView = findViewById(R.id.photoRecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(GalleryActivity.this,RecyclerView.HORIZONTAL,false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator( new DefaultItemAnimator());
 
 
-        adapter = new GalleryRecyclerAdapter(this, photos);
+        adapter = new GalleryRecyclerAdapter(this, photos,language);
         recyclerView.setAdapter(adapter);
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -58,6 +82,7 @@ public class GalleryActivity extends AppCompatActivity {
                 }
                 else if(item.getItemId() == R.id.idea){
                     Intent intent = new Intent(GalleryActivity.this,IdeasActivity.class);
+                    intent.putExtra("flag",true);
                     startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.entertainment){
@@ -76,7 +101,18 @@ public class GalleryActivity extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.back_menu, menu);
+        sharedPref = getSharedPreferences("languagePref",Context.MODE_PRIVATE);
+        String defaultValue = getResources().getString(R.string.defautllanguage);
+        String language = sharedPref.getString(getString(R.string.language), defaultValue);
+        if(language.equals("pashto")){
+            getMenuInflater().inflate(R.menu.p_back_menu, menu);
+        }else if (language.equals("dari")){
+            getMenuInflater().inflate(R.menu.p_back_menu, menu);
+        }
+        else{
+            getMenuInflater().inflate(R.menu.back_menu, menu);
+        }
+
         return true;
     }
     @Override
@@ -88,5 +124,26 @@ public class GalleryActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void scrollRight(View view) {
+        recyclerView.smoothScrollBy(280,0);
+    }
+
+    public void scrollLeft(View view) {
+        recyclerView.smoothScrollBy(-280,0);
+    }
+    public void openProfileActivity(View view) {
+        Intent intent = new Intent(GalleryActivity.this,ProfileActivity.class);
+        startActivity(intent);
+    }
+    @Override
+    public void onItemClick(View view, int position) {
+        Intent intent = new Intent(GalleryActivity.this,FullPhotoActivity.class);
+          int image = adapter.getItem(position);
+        intent.putExtra("image",image);
+        startActivity(intent);
+        // Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+
     }
 }

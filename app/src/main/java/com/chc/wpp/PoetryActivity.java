@@ -10,12 +10,13 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -28,12 +29,26 @@ import java.util.List;
 
 public class PoetryActivity extends AppCompatActivity implements PoetryRecyclerAdapter.ItemClickListener {
     PoetryRecyclerAdapter adapter;
+    SharedPreferences sharedPref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.poetry_navigation);
+        sharedPref = getSharedPreferences("languagePref", Context.MODE_PRIVATE);
+        String defaultValue = getResources().getString(R.string.defautllanguage);
+        String language = sharedPref.getString(getString(R.string.language), defaultValue);
+        //super.onCreate(savedInstanceState);
+        if(language.equals("pashto")){
+            setContentView(R.layout.pashto_poetry_navigation);
+        }else if (language.equals("dari")){
+            setContentView(R.layout.dari_poetry_navigation);
+        }
+        else{
+            setContentView(R.layout.english_poetry_navigation);
+        }
+      //  setContentView(R.layout.english_poetry_navigation);
         Toolbar toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         NavigationView navigationView = findViewById(R.id.navigation_view);
         DrawerLayout drawerLayout = findViewById(R.id.navigation_layout);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.stopen, R.string.stclose);
@@ -108,6 +123,7 @@ public class PoetryActivity extends AppCompatActivity implements PoetryRecyclerA
                 }
                 else if(item.getItemId() == R.id.idea){
                     Intent intent = new Intent(PoetryActivity.this,IdeasActivity.class);
+                    intent.putExtra("flag",true);
                     startActivity(intent);
                 }
                 else if(item.getItemId() == R.id.entertainment){
@@ -138,7 +154,18 @@ public class PoetryActivity extends AppCompatActivity implements PoetryRecyclerA
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.back_menu, menu);
+        sharedPref = getSharedPreferences("languagePref",Context.MODE_PRIVATE);
+        String defaultValue = getResources().getString(R.string.defautllanguage);
+        String language = sharedPref.getString(getString(R.string.language), defaultValue);
+        if(language.equals("pashto")){
+            getMenuInflater().inflate(R.menu.p_back_menu, menu);
+        }else if (language.equals("dari")){
+            getMenuInflater().inflate(R.menu.p_back_menu, menu);
+        }
+        else{
+            getMenuInflater().inflate(R.menu.back_menu, menu);
+        }
+
         return true;
     }
     @Override
@@ -150,5 +177,9 @@ public class PoetryActivity extends AppCompatActivity implements PoetryRecyclerA
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    public void openProfileActivity(View view) {
+        Intent intent = new Intent(PoetryActivity.this,ProfileActivity.class);
+        startActivity(intent);
     }
 }

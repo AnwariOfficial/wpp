@@ -7,21 +7,49 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
+import com.google.mlkit.nl.languageid.LanguageIdentification;
+import com.google.mlkit.nl.languageid.LanguageIdentifier;
 
 public class StoryActivity extends AppCompatActivity {
-
+    SharedPreferences sharedPref;
+    ImageView imageView;
+    TextView storyTeller;
+    TextView story;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.story_navigation);
+      //  setContentView(R.layout.english_story_navigation);
+        sharedPref = getSharedPreferences("languagePref", Context.MODE_PRIVATE);
+        String defaultValue = getResources().getString(R.string.defautllanguage);
+        String language = sharedPref.getString(getString(R.string.language), defaultValue);
+        //super.onCreate(savedInstanceState);
+        if(language.equals("pashto")){
+            setContentView(R.layout.pashto_story_navigation);
+        }else if (language.equals("dari")){
+            setContentView(R.layout.dari_story_navigation);
+        }
+        else{
+            setContentView(R.layout.english_story_navigation);
+        }
+        imageView = findViewById(R.id.image);
+        storyTeller = findViewById(R.id.storyTellerName);
+        story = findViewById(R.id.text_story);
         Toolbar toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         NavigationView navigationView = findViewById(R.id.navigation_view);
         DrawerLayout drawerLayout = findViewById(R.id.navigation_layout);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.stopen, R.string.stclose);
@@ -51,10 +79,50 @@ public class StoryActivity extends AppCompatActivity {
                 return true;
             }
         });
+        LanguageIdentifier languageIdentifier =
+                LanguageIdentification.getClient();
+        languageIdentifier.identifyLanguage(getResources().getString(R.string.poem))
+                .addOnSuccessListener(
+                        new OnSuccessListener<String>() {
+                            @Override
+                            public void onSuccess(String languageCode) {
+                                if (languageCode.equals("ps") || languageCode.equals("fa")) {
+                                    story.setTextDirection(View.TEXT_DIRECTION_RTL);
+                                    story.setTextDirection(View.TEXT_DIRECTION_RTL);
+                                    story.setPadding(0,0,8,0);
+                                } else if(languageCode.equals("en")) {
+                                    story.setTextDirection(View.TEXT_DIRECTION_LTR);
+                                    story.setTextDirection(View.TEXT_DIRECTION_LTR);
+                                    story.setPadding(8,0,0,0);
+                                }
+                            }
+                        })
+                .addOnFailureListener(
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure( Exception e) {
+                                System.out.println("Failure Listiner");
+                            }
+                        });
+    imageView.setImageResource(R.drawable.anwari);
+    storyTeller.setText(R.string.e_answer);
+    story.setText(R.string.poem);
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.back_menu, menu);
+        sharedPref = getSharedPreferences("languagePref",Context.MODE_PRIVATE);
+        String defaultValue = getResources().getString(R.string.defautllanguage);
+        String language = sharedPref.getString(getString(R.string.language), defaultValue);
+        if(language.equals("pashto")){
+            getMenuInflater().inflate(R.menu.p_back_menu, menu);
+        }else if (language.equals("dari")){
+            getMenuInflater().inflate(R.menu.p_back_menu, menu);
+        }
+        else{
+            getMenuInflater().inflate(R.menu.back_menu, menu);
+        }
+
         return true;
     }
     @Override
@@ -66,5 +134,9 @@ public class StoryActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    public void openProfileActivity(View view) {
+        Intent intent = new Intent(StoryActivity.this,ProfileActivity.class);
+        startActivity(intent);
     }
 }

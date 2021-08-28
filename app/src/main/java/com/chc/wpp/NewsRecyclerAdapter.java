@@ -6,9 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.mlkit.nl.languageid.LanguageIdentification;
+import com.google.mlkit.nl.languageid.LanguageIdentifier;
+
+import java.text.Bidi;
 import java.util.List;
 
 
@@ -27,7 +34,7 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.post_recycler_view, parent, false);
+        View view = mInflater.inflate(R.layout.english_post_recycler_view, parent, false);
         return new ViewHolder(view);
     }
 
@@ -39,7 +46,44 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
         News news = mData.get(position);
         holder.myTextView.setText(news.getNews_title());
         holder.newsImage.setImageResource(news.getNews_image());
+        LanguageIdentifier languageIdentifier =
+                LanguageIdentification.getClient();
+        languageIdentifier.identifyLanguage(news.getNews_content())
+                .addOnSuccessListener(
+                        new OnSuccessListener<String>() {
+                            @Override
+                            public void onSuccess(String languageCode) {
+                                if (languageCode.equals("ps") || languageCode.equals("fa")) {
+
+                                    holder.myTextView.setTextDirection(View.TEXT_DIRECTION_RTL);
+                                    holder.myTextView.setTextDirection(View.LAYOUT_DIRECTION_RTL);
+                                    holder.contentImage.setTextDirection(View.LAYOUT_DIRECTION_RTL);
+                                    holder.contentImage.setTextDirection(View.TEXT_DIRECTION_RTL);
+                                    holder.contentImage.setPadding(0,0,8,0);
+                                    holder.myTextView.setPadding(8,0,8,0);
+                                } else if(languageCode.equals("en")) {
+                                    holder.myTextView.setTextDirection(View.TEXT_DIRECTION_LTR);
+                                    holder.myTextView.setTextDirection(View.LAYOUT_DIRECTION_LTR);
+                                    holder.contentImage.setTextDirection(View.LAYOUT_DIRECTION_LTR);
+                                    holder.contentImage.setTextDirection(View.TEXT_DIRECTION_LTR);
+                                    holder.contentImage.setPadding(0,0,8,0);
+                                    holder.myTextView.setPadding(8,0,8,0);
+                                }
+
+                            }
+                        })
+                .addOnFailureListener(
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure( Exception e) {
+                                System.out.println("Failure Listiner");
+                            }
+                        });
+
         holder.contentImage.setText(news.getNews_content());
+
+
+
 
     }
 

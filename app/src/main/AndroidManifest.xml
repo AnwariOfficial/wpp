@@ -16,7 +16,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Wpp">
-        <activity android:name=".PoetryContentActivity"></activity>
+        <activity android:name=".FullPhotoActivity"></activity>
+        <activity android:name=".ForgetPasswordActivity" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".SurveysActivity" />
+        <activity android:name=".CultureActivity" />
+        <activity android:name=".PoetryContentActivity" />
         <activity android:name=".GalleryActivity" />
         <activity android:name=".StoryActivity" />
         <activity android:name=".AboutActivity" />
@@ -24,7 +29,9 @@
         <activity android:name=".RecentPostsActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".NewsContentActivity" />
+        <activity android:name=".BlogsContentActivity" />
         <activity android:name=".NewsActivity" />
+        <activity android:name=".BlogsActivity" />
         <activity android:name=".IdeasActivity" />
         <activity android:name=".EntertainmentActivity" />
         <activity android:name=".MainActivity">
