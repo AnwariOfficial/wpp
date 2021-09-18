@@ -83,6 +83,10 @@ public class NewsActivity extends AppCompatActivity implements NewsRecyclerAdapt
                     Intent intent = new Intent(NewsActivity.this,SurveysActivity.class);
                     startActivity(intent);
                 }
+                else if(item.getItemId() == R.id.logout){
+                    Intent intent = new Intent(NewsActivity.this,MainActivity.class);
+                    startActivity(intent);
+                }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }
@@ -92,29 +96,33 @@ public class NewsActivity extends AppCompatActivity implements NewsRecyclerAdapt
         // data to populate the RecyclerView with
         ArrayList<News> animalNames = new ArrayList<>();
         News n1 = new News();
-        n1.setNews_content(getResources().getString(R.string.p_news_content));
-        n1.setNews_image(R.drawable.news_image);
-        n1.setNews_title("Afghanistan is developed country");
+        n1.setNews_content(getResources().getString(R.string.news1));
+        n1.setNews_image(R.drawable.image1);
+        n1.setNews_title(getResources().getString(R.string.heading1));
 
         News n2 = new News();
-        n2.setNews_content(getResources().getString(R.string.p_news_content));
-        n2.setNews_image(R.drawable.news_image);
-        n2.setNews_title("Afghanistan is developed country");
+        n2.setNews_content(getResources().getString(R.string.news2));
+        n2.setNews_image(R.drawable.image2);
+        n2.setNews_title(getResources().getString(R.string.heading2));
         News n3 = new News();
-        n3.setNews_content("Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add.\n" +
-                "        You can also type a keyword to search online for the video that best fits your document. Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add. You can also type a keyword to search online for the video that best fits your document.");
-        n3.setNews_image(R.drawable.anwari);
-        n3.setNews_title("Afghanistan is developed country");
+        n3.setNews_content(getResources().getString(R.string.news3));
+        n3.setNews_image(R.drawable.image3);
+        n3.setNews_title(getResources().getString(R.string.heading3));
         News n4 = new News();
-        n4.setNews_content(getResources().getString(R.string.d_news_content));
-        n4.setNews_image(R.drawable.anwari);
-        n4.setNews_title(getResources().getString(R.string.d_heading));
+        n4.setNews_content(getResources().getString(R.string.news4));
+        n4.setNews_image(R.drawable.image4);
+        n4.setNews_title(getResources().getString(R.string.heading4));
 
+        News n5 = new News();
+        n5.setNews_content(getResources().getString(R.string.news5));
+        n5.setNews_image(R.drawable.image5);
+        n5.setNews_title(getResources().getString(R.string.heading5));
         List<News> newsList = new ArrayList<>();
         newsList.add(n1);
         newsList.add(n2);
         newsList.add(n3);
         newsList.add(n4);
+        newsList.add(n5);
 
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.rvAnimals);

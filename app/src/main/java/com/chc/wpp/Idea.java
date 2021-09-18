@@ -1,5 +1,6 @@
 package com.chc.wpp;
 
+import java.io.File;
 import java.util.Date;
 
 public class Idea {
@@ -7,6 +8,34 @@ public class Idea {
     private String userName;
     private Date postDate;
     private String ideaPost;
+
+    private int image;
+    private File video;
+    private File audio;
+
+    public int getImage() {
+        return image;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
+    }
+
+    public File getVideo() {
+        return video;
+    }
+
+    public void setVideo(File video) {
+        this.video = video;
+    }
+
+    public File getAudio() {
+        return audio;
+    }
+
+    public void setAudio(File audio) {
+        this.audio = audio;
+    }
 
     public int getProfilePhoto() {
         return profilePhoto;

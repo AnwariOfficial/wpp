@@ -60,10 +60,13 @@ public class GalleryActivity extends AppCompatActivity implements GalleryRecycle
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         List<Integer> photos = new ArrayList<>();
-        photos.add(R.drawable.anwari);
-        photos.add(R.drawable.anwari);
-        photos.add(R.drawable.anwari);
-        photos.add(R.drawable.anwari);
+        photos.add(R.drawable.image20);
+        photos.add(R.drawable.image17);
+        photos.add(R.drawable.image12);
+        photos.add(R.drawable.image22);
+        photos.add(R.drawable.image19);
+        photos.add(R.drawable.image10);
+        photos.add(R.drawable.image8);
          recyclerView = findViewById(R.id.photoRecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(GalleryActivity.this,RecyclerView.HORIZONTAL,false);
         recyclerView.setLayoutManager(layoutManager);
@@ -91,6 +94,10 @@ public class GalleryActivity extends AppCompatActivity implements GalleryRecycle
                 }
                 else if(item.getItemId() == R.id.about){
                     Intent intent = new Intent(GalleryActivity.this,AboutActivity.class);
+                    startActivity(intent);
+                }
+                else if(item.getItemId() == R.id.logout){
+                    Intent intent = new Intent(GalleryActivity.this,MainActivity.class);
                     startActivity(intent);
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);

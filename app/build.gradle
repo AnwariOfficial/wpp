@@ -45,6 +45,11 @@ dependencies {
     implementation 'com.github.jd-alexander:LikeButton:0.2.3'
     testImplementation 'junit:junit:4.+'
 
+    //recorder
+    implementation 'com.github.3llomi:RecordView:3.0.2'
+    //expandable
+    implementation 'com.nambimobile.widgets:expandable-fab:1.1.1'
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }

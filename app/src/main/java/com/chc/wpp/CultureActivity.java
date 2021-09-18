@@ -77,4 +77,19 @@ public class CultureActivity extends AppCompatActivity {
         Intent intent = new Intent(CultureActivity.this,ProfileActivity.class);
         startActivity(intent);
     }
+
+    public void openFood(View view) {
+        Intent intent = new Intent(CultureActivity.this,CultureActivity.class);
+        startActivity(intent);
+    }
+
+    public void openAttan(View view) {
+        Intent intent = new Intent(CultureActivity.this, FoodActivity.class);
+        startActivity(intent);
+    }
+
+    public void openColthes(View view) {
+        Intent intent = new Intent(CultureActivity.this, AttanActivity.class);
+        startActivity(intent);
+    }
 }

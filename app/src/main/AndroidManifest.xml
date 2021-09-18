@@ -4,6 +4,9 @@
     package="com.chc.wpp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <supports-screens
         android:xlargeScreens="true"
@@ -16,7 +19,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Wpp">
-        <activity android:name=".FullPhotoActivity"></activity>
+        <activity android:name=".AttanActivity"></activity>
+        <activity android:name=".FoodActivity" />
+        <activity android:name=".FullPhotoActivity" />
         <activity android:name=".ForgetPasswordActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".SurveysActivity" />

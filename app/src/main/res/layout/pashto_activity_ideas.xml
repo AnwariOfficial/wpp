@@ -49,12 +49,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
     <EditText
         android:id="@+id/editTextTextMultiLine"
         android:layout_width="312dp"
-        android:layout_height="220dp"
+        android:layout_height="180dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/edit_text_border"
         android:ems="10"
@@ -66,9 +67,95 @@
         android:textColorHint="@color/text_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <ImageButton
+        android:layoutDirection="ltr"
+        android:id="@+id/imagefloatingActionButton"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/circle"
+        android:clickable="true"
+        android:elevation="6dp"
+        android:src="@drawable/ic_baseline_image_24"
+        app:borderWidth="2dp"
+        app:fabSize="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout7" />
+    <ImageButton
+        android:layout_marginTop="8dp"
+        android:id="@+id/videofloatingActionButton"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="@drawable/circle"
+        android:clickable="true"
+        android:elevation="6dp"
+        android:layoutDirection="ltr"
+        android:src="@drawable/ic_baseline_video_library_24"
+        app:borderWidth="2dp"
+
+        app:layout_constraintEnd_toEndOf="@+id/imagefloatingActionButton"
+        app:layout_constraintTop_toBottomOf="@+id/imagefloatingActionButton" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine">
+
+        <RelativeLayout
+            android:id="@+id/parent_layout"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            tools:context=".MainActivity">
+
+            <!--<Button
+                android:id="@+id/btn_change_onclick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Change onClick" />-->
 
 
+            <com.devlomi.record_view.RecordView
+
+                android:id="@+id/record_view"
+                android:layout_marginRight="80dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:counter_time_color="@color/pink"
+                app:slide_to_cancel_arrow="@drawable/recv_ic_arrow"
+                app:slide_to_cancel_arrow_color="@color/pink"
+                app:slide_to_cancel_bounds="10dp"
+                app:slide_to_cancel_margin_right="10dp"
+                app:slide_to_cancel_text="Slide To Cancel" />
+
+            <com.devlomi.record_view.RecordButton
+                android:id="@+id/record_button"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/circle"
+                android:scaleType="centerInside"
+                app:mic_icon="@drawable/ic_baseline_keyboard_voice_24" />
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView5"
@@ -88,12 +175,62 @@
         android:id="@+id/button6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/p_post"
+        android:layout_marginTop="4dp"
         android:background="@drawable/custom_gredeint"
-        app:layout_constraintEnd_toEndOf="parent"
         android:onClick="openNews"
+        android:text="@string/p_post"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout7" />
+
+
+    <!--<com.nambimobile.widgets.efab.ExpandableFabLayout
+        android:id="@+id/expandable_fab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.nambimobile.widgets.efab.Overlay
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:overlay_alpha="0.75"
+            app:overlay_color="@color/dark_blue"
+            app:overlay_openingAnimationDurationMs="1000" />
+
+        <com.nambimobile.widgets.efab.ExpandableFab
+            android:id="@+id/expandable_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            app:efab_closingAnticipateTension="0"
+            app:efab_color="@color/pink"
+            app:efab_icon="@drawable/ic_baseline_add_24"
+            app:efab_iconAnimationRotationDeg="-225"
+            app:label_text="Compose" />
+
+        <com.nambimobile.widgets.efab.FabOption
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_color="@color/pink"
+            app:fab_icon="@drawable/ic_baseline_video_library_24"
+            app:label_backgroundColor="@color/dark_blue"
+            app:label_text="Video"
+            app:label_textColor="@color/text_color" />
+
+        <com.nambimobile.widgets.efab.FabOption
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_color="@color/pink"
+            app:label_textColor="@color/text_color"
+            app:fab_icon="@drawable/ic_baseline_image_24"
+            app:label_backgroundColor="@color/dark_blue"
+            app:label_text="Picture" />
+
+    </com.nambimobile.widgets.efab.ExpandableFabLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

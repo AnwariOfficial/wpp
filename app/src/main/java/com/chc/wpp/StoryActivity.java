@@ -26,6 +26,7 @@ import com.google.mlkit.nl.languageid.LanguageIdentifier;
 public class StoryActivity extends AppCompatActivity {
     SharedPreferences sharedPref;
     ImageView imageView;
+    ImageView photo;
     TextView storyTeller;
     TextView story;
     @Override
@@ -44,6 +45,7 @@ public class StoryActivity extends AppCompatActivity {
         else{
             setContentView(R.layout.english_story_navigation);
         }
+        photo = findViewById(R.id.imageStoryteller);
         imageView = findViewById(R.id.image);
         storyTeller = findViewById(R.id.storyTellerName);
         story = findViewById(R.id.text_story);
@@ -75,6 +77,10 @@ public class StoryActivity extends AppCompatActivity {
                     Intent intent = new Intent(StoryActivity.this,AboutActivity.class);
                     startActivity(intent);
                 }
+                else if(item.getItemId() == R.id.logout){
+                    Intent intent = new Intent(StoryActivity.this,MainActivity.class);
+                    startActivity(intent);
+                }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }
@@ -104,8 +110,9 @@ public class StoryActivity extends AppCompatActivity {
                                 System.out.println("Failure Listiner");
                             }
                         });
-    imageView.setImageResource(R.drawable.anwari);
-    storyTeller.setText(R.string.e_answer);
+    imageView.setImageResource(R.drawable.story_icon);
+    photo.setImageResource(R.drawable.image7);
+    storyTeller.setText("Nazanin, 27");
     story.setText(R.string.poem);
 
     }

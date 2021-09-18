@@ -16,29 +16,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@color/pink"></androidx.appcompat.widget.Toolbar>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/images"
-    app:layout_constraintTop_toBottomOf="@id/toolBar"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintEnd_toStartOf="parent"
-    android:gravity="center_horizontal"
-    android:orientation="horizontal">
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:src="@drawable/cult_first"/>
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:src="@drawable/cult_second"/>
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:src="@drawable/cult_three"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/images"
+        app:layout_constraintTop_toBottomOf="@id/toolBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/cult_first"
+            android:onClick="openFood"
+            />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/cult_second"
+            android:onClick="openAttan"
+            />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:onClick="openColthes"
+            android:src="@drawable/cult_three"/>
 
-</LinearLayout>
+    </LinearLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_gravity="right"

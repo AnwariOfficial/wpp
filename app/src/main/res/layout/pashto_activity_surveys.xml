@@ -22,7 +22,7 @@
         android:id="@+id/textView9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/p_survey"
         android:textColor="@color/pink"
@@ -34,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolBar" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-
+        android:layoutDirection="ltr"
         android:id="@+id/imageView"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -87,23 +87,26 @@
                 android:onClick="scrollRight"
                 android:src="@drawable/right_arrow" />
         </LinearLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="280dp"
+            android:layoutDirection="ltr"
             android:background="@drawable/survey_items">
 
             <TextView
                 android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="44dp"
-                android:layout_marginTop="192dp"
+                android:layout_marginStart="56dp"
+                android:layout_marginTop="20dp"
                 android:rotation="25"
                 android:text="@string/p_numberOfReplies"
+                android:textAlignment="center"
                 android:textColor="@color/yellow"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
             <TextView
                 android:id="@+id/textView14"
@@ -134,30 +137,34 @@
             <TextView
                 android:id="@+id/textView16"
                 android:layout_width="50dp"
-                android:layout_height="46dp"
+                android:layout_height="0dp"
                 android:layout_marginTop="136dp"
-                android:layout_marginEnd="112dp"
+                android:layout_marginEnd="96dp"
+                android:layout_marginBottom="50dp"
                 android:rotation="120"
                 android:text="@string/p_view"
                 android:textColor="@color/yellow"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/textView17"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:textSize="10sp"
-                android:textAlignment="center"
                 android:id="@+id/textView17"
-                android:layout_width="91dp"
-                android:layout_height="15dp"
-                android:layout_marginBottom="44dp"
+                android:layout_width="98dp"
+                android:layout_height="34dp"
+                android:layout_marginBottom="28dp"
+                android:paddingTop="4dp"
                 android:text="@string/p_surveyTitle"
+                android:textAlignment="center"
                 android:textColor="@color/yellow"
+                android:textSize="10sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.543"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintHorizontal_bias="0.536"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView16" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView

@@ -134,6 +134,10 @@ public class PoetryActivity extends AppCompatActivity implements PoetryRecyclerA
                     Intent intent = new Intent(PoetryActivity.this,AboutActivity.class);
                     startActivity(intent);
                 }
+                else if(item.getItemId() == R.id.logout){
+                    Intent intent = new Intent(PoetryActivity.this,MainActivity.class);
+                    startActivity(intent);
+                }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }

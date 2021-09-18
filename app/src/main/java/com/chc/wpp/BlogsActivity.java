@@ -79,6 +79,10 @@ public class BlogsActivity extends AppCompatActivity implements BlogsRecyclerAda
                     Intent intent = new Intent(BlogsActivity.this,SurveysActivity.class);
                     startActivity(intent);
                 }
+                else if(item.getItemId() == R.id.logout){
+                    Intent intent = new Intent(BlogsActivity.this,MainActivity.class);
+                    startActivity(intent);
+                }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }
@@ -91,25 +95,24 @@ public class BlogsActivity extends AppCompatActivity implements BlogsRecyclerAda
         ArrayList<Blogs> animalNames = new ArrayList<>();
         Blogs n1 = new Blogs();
         n1.setNews_content(getResources().getString(R.string.p_news_content));
-        n1.setNews_image(R.drawable.news_image);
-        n1.setNews_title("Afghanistan is developed country");
+        n1.setNews_image(R.drawable.image7);
+        n1.setNews_title(getResources().getString(R.string.heading4));
         n1.setAuthor("Ahmadullah Ahmadi");
 
         Blogs n2 = new Blogs();
-        n2.setNews_content(getResources().getString(R.string.p_news_content));
-        n2.setNews_image(R.drawable.news_image);
-        n2.setNews_title("Afghanistan is developed country");
+        n2.setNews_content(getResources().getString(R.string.news1));
+        n2.setNews_image(R.drawable.image14);
+        n2.setNews_title("France is developed country");
         n2.setAuthor("Ahmadullah Ahmadi");
         Blogs n3 = new Blogs();
-        n3.setNews_content("Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add.\n" +
-                "        You can also type a keyword to search online for the video that best fits your document. Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add. You can also type a keyword to search online for the video that best fits your document.");
-        n3.setNews_image(R.drawable.anwari);
-        n3.setNews_title("Afghanistan is developed country");
+        n3.setNews_content(getResources().getString(R.string.news3));
+        n3.setNews_image(R.drawable.image19);
+        n3.setNews_title(getResources().getString(R.string.heading3));
         n3.setAuthor("Ahmadullah Ahmadi");
         Blogs n4 = new Blogs();
         n4.setNews_content("Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add.\n" +
                 "        You can also type a keyword to search online for the video that best fits your document. Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add. You can also type a keyword to search online for the video that best fits your document.");
-        n4.setNews_image(R.drawable.anwari);
+        n4.setNews_image(R.drawable.image12);
         n4.setNews_title("Afghanistan is developed country");
         n4.setAuthor("Ahmadullah Ahmadi");
 

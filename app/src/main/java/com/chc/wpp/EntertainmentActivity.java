@@ -74,6 +74,10 @@ public class EntertainmentActivity extends AppCompatActivity {
                     Intent intent = new Intent(EntertainmentActivity.this,SurveysActivity.class);
                     startActivity(intent);
                 }
+                else if(item.getItemId() == R.id.logout){
+                    Intent intent = new Intent(EntertainmentActivity.this,MainActivity.class);
+                    startActivity(intent);
+                }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }

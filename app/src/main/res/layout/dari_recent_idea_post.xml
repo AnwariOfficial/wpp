@@ -81,7 +81,14 @@
 
 
         </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/posted_layout">
 
+
+</LinearLayout>
 
 
     </androidx.cardview.widget.CardView>

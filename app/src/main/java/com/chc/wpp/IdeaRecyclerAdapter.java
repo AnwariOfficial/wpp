@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -72,6 +73,10 @@ public class IdeaRecyclerAdapter extends RecyclerView.Adapter<IdeaRecyclerAdapte
        holder.userName.setText(idea.getUserName());
        holder.date.setText(String.valueOf(idea.getPostDate()));
        holder.ideaPost.setText(idea.getIdeaPost());
+       if(idea.getAudio()!=null){
+
+       }
+
     }
 
     // total number of rows
@@ -87,6 +92,7 @@ public class IdeaRecyclerAdapter extends RecyclerView.Adapter<IdeaRecyclerAdapte
         TextView userName;
         TextView date;
         TextView ideaPost;
+        LinearLayout linearLayout;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -94,7 +100,7 @@ public class IdeaRecyclerAdapter extends RecyclerView.Adapter<IdeaRecyclerAdapte
             userName = itemView.findViewById(R.id.recentIdeaUsername);
             date = itemView.findViewById(R.id.recentIdeaDate);
             ideaPost = itemView.findViewById(R.id.recentIdeaPostContainer);
-
+            linearLayout = itemView.findViewById(R.id.posted_layout);
             itemView.setOnClickListener(this);
         }
 

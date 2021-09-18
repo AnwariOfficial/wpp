@@ -105,6 +105,10 @@ public class ProfileActivity extends AppCompatActivity {
                         Intent intent = new Intent(ProfileActivity.this,AboutActivity.class);
                         startActivity(intent);
                     }
+                    else if(item.getItemId() == R.id.logout){
+                        Intent intent = new Intent(ProfileActivity.this,MainActivity.class);
+                        startActivity(intent);
+                    }
                     drawerLayout.closeDrawer(GravityCompat.START);
                     return true;
                 }

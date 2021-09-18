@@ -60,6 +60,59 @@ How I wish I could control this clock.
 تصاویر آقای دوستم با پسرش در جبهه جوزجان در شبکه‌های اجتماعی منتشر شد. در حالیکه هنوز هم جنگ در جوزجان جریان داشت، آقای دوستم به ترکیه رفت.</string>
     <string name="d_heading">مارشال عبدالرشید دوستم، رهبر حزب جنش اسلامی افغانستان بعد از چندین ماه مداوا به افغانستان برگشت.</string>
 
+    <string name="heading1">Afghanistan: Biden says another Kabul airport attack likely</string>
+    <string name="heading2">پینټاګون وايي، لا هم د داعش خطر جدي دی؛ لږ تر لږه ۱۱۷ زره کسان له کابله ایستل شوي</string>
+    <string name="heading3">اظهارات سخنگوی وزارت خارجه آمریکا در مورد فرق طالبان و شبکه حقانی خبرساز شد</string>
+
+    <string name="news1">Another attack on Kabul airport is highly likely, US President Joe Biden has warned, saying that military commanders have told him it could come as early as Sunday.
+
+The US is continuing evacuations but the final British flight carrying only Afghan civilians left on Saturday.
+
+About 170 people died after a suicide bomber targeted the airport on Thursday as crowds of Afghans were trying to get on evacuation flights.
+
+The IS-K group has claimed the attack.
+
+In retaliation, the US carried out a drone strike on eastern Afghanistan late on Friday, killing two "high-profile" members of IS-K - the Islamic State (IS) group in Khorasan Province.
+
+The two are described as a planner and a facilitator. It is unclear whether they were directly involved in planning the Kabul airport attack.</string>
+    <string name="news2">د امریکا دفاع وزارت ویاند جان کربي په یوه خبري غونډه کې وویل، کابل کې لا هم د داعش خطر جدي دی. په ورته مهال امریکايي پوځي چارواکي وايي، ۱۱۷ زره کسان د کابل له حامد کرزي هوايي ډګره ایستل شوي دي او تر وروستیي ټاکل شوي وخته به دا لړۍ روانه وي.
+
+ښاغلي کربي په یوه لنډ مهاله خبري غونډه کې وویل، امریکا ان د یوې دقیقې لپاره هم تصور نه کوي چې څه کابل کې پېښ شول د دې هېواد پر هوډ به اغېز وکړي.
+
+نوموړي زیاته کړه د پنجشنبې ورځې ډرون برید د داعش ډلې یوه مهم کس له منځه وړلو لپاره وه، چې دغې ډلې ته یې د بریدونو لپاره اسانتیا چمتو کوله.
+
+امریکايي ځواکونو د کابل حامد کرزي هوايي ډګره بهر د داعش ډلې له خونړي برید دوې ورځې وروسته پر پنجشنبه وویل، د داعش خراسان ډلې د بریدونو یو طراح یا پلان جوړوونکی یې د افغانستان په ختیځ کې وژلی دی.
+
+د امریکايي پوځ ډرون الوتکې په ننګرهار ولایت کې دا برید کړی. د پنټاګون په وینا هغه کس چې ډرون برید پرې شوی، وژل شوی دی او ملکي کسانو ته د تلفاتو اوښتو رپوټ نه دی ورکړل شوی.</string>
+    <string name="news3">اظهارات سخنگوی وزارت خارجه آمریکا در مورد اینکه طالبان و شبکه حقانی دو نهاد "جداگانه" هستند، خبرساز شده، در حالی که سراج‌الدین، فرمانده شبکه حقانی، یکی از دو معاون هبت‌الله آخند‌زاده، رهبر طالبان، است.
+
+شب گذشته ند پرایس، سخنگوی وزارت خارجه آمریکا در پاسخ به سوالی که آیا اطلاعات شهروندان آمریکایی‌ در اختیار طالبان و شبکه حقانی نیز قرار گرفته، گفت: "نه، نشده، طالبان و شبکه حقانی دو نهاد جداگانه هستند."
+
+این سخنان آقای پرایس با انتقاد برخی در شبکه‌های اجتماعی روبرو شده است.
+
+پنتاگون پیشتر گفته بود اطلاعات مربوط به شهروندان آمریکایی که قرار است از افغانستان تخلیه شوند، در مسیر فرودگاه کابل با طالبان نیز شریک شده است.
+
+شبکه حقانی متهم است که بارها حملات مرگباری علیه دولت افغانستان و نیروهای آمریکایی درافغانستان انجام داده است. این شبکه با آنکه جزئی از ساختار تشکیلات رسمی طالبان معرفی شده اما همواره مستقل و خودمختار عمل کرده است. بنا به گزارش‌ها، شبکه حقانی ارتباط نزدیک با شبکه القاعده دارد.</string>
+
+    <string name="heading4">د ملاریا په اړه نوې څېړنه: ښايي تر ۷۰ سلنې ناروغي او له امله یې مړینه کمه شي</string>
+    <string name="news4">له ملاریا وژونکي ناروغۍ د افریقايي ماشومانو د ژغورنې لپاره د یوې نوې څېړنې پایلې ښيي چې ښايي د دې ناروغۍ او له امله د مړینې کچه تر ۷۰ سلنې کمه شي.
+
+په لندن کې څېړونکي وايي چې د ملاریا تر ټولو ناوړه موسم وړاندې واکسین او درملو ډېرې د پام وړپایلې لرلي دي.
+
+په څېړنه کې په بورکینافاسو او مالي کې له ۱۷ کلونو د کم عمر ۶۰۰۰ ماشومانو درملنه شوې ده.
+
+په کال کې د ملاریا له امله د مړینې ۴۰۰ زره پېښو کې اکثره یې له پنځو کلونو کم عمره ماشومان دي. او د افریقا د لویې صحرا په سویل کې په ډېرو سیمو کې دا ناروغي لا هم تر ټولو لویه روغتیايي مسله ده.
+
+د دې څېړنې پایلې د انګلستان طبي ژورنال NEW ENGLAND JOURNAL OF MEDICAL خپرې کړي. د څېړنې پرمهال ماشومانو ته د ملاریا هغه واکسین ورکړل شوی چې اوس کارول کیږي خو تر څنګ د ملاریا ضد درمل هم ورکړل شوي. دا تجربه د ملاریا په تر ټولو سخت موسم کې شوې ده چې غالبا باراني موسم دی.</string>
+
+    <string name="heading5">Afghanistan s economy may be only weeks from collapse, according to a former UN official</string>
+    <string name="news5">A former UN official who previously worked on Taliban-related sanctions said the economy in Afghanistan may be weeks away from collapse, NBC News reported.
+
+Hans-Jakob Schindler, a German former diplomat, told NBC that there may be weeks or a couple of months before economic failure. He said: Then the economy is in deep trouble."
+
+NGOs and international aid groups have called for quick action to avert an economic crisis in the country as the Taliban worked to replace key staff at some of the country's financial institutions.
+
+It was reported last week that the Taliban was unable to get its hands on $10 billion in central bank reserves, because most of the funds were held in New York.</string>
 
     <string name="p_home">کور</string>
     <string name="d_home">خانه</string>

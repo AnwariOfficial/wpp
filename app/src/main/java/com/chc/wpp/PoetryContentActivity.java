@@ -117,6 +117,10 @@ public class PoetryContentActivity extends AppCompatActivity {
                     Intent intent = new Intent(PoetryContentActivity.this,AboutActivity.class);
                     startActivity(intent);
                 }
+                else if(item.getItemId() == R.id.logout){
+                    Intent intent = new Intent(PoetryContentActivity.this,MainActivity.class);
+                    startActivity(intent);
+                }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }

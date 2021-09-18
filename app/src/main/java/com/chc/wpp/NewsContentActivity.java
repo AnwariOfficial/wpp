@@ -91,6 +91,10 @@ public class NewsContentActivity extends AppCompatActivity {
                     Intent intent = new Intent(NewsContentActivity.this,SurveysActivity.class);
                     startActivity(intent);
                 }
+                else if(item.getItemId() == R.id.logout){
+                    Intent intent = new Intent(NewsContentActivity.this,MainActivity.class);
+                    startActivity(intent);
+                }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }
