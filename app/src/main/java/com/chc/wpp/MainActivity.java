@@ -1,11 +1,13 @@
 package com.chc.wpp;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +15,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.regex.Pattern;
 
@@ -22,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     Button btn_login;
     private EditText email;
     private EditText password;
+    String loginUrl ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,78 +58,7 @@ public class MainActivity extends AppCompatActivity {
         btn_login = findViewById(R.id.btn_login);
         btn_login.setEnabled(false);
         //password = findViewById(R.id.password);
-
-
-
-      /*  final EditText emailValidate = findViewById(R.id.username);
-        String email = emailValidate.getText().toString().trim();
-        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-        Pattern pattern = Pattern.compile(emailPattern,Pattern.CASE_INSENSITIVE);
-
-
-
-        emailValidate .addTextChangedListener(new TextWatcher() {
-            public void afterTextChanged(Editable s) {
-
-                if (pattern.matcher(s).matches() && s.length() > 0)
-                {
-
-                    //Toast.makeText(getApplicationContext(),"valid email address",Toast.LENGTH_SHORT).show();
-                    emailValidate.setError(null);
-                    emailValidate.setFocusable(true);
-                    btn_login.setEnabled(true);
-                }
-                else
-                {
-                    btn_login.setEnabled(false);
-                   // Toast.makeText(getApplicationContext(),"Invalid email address",Toast.LENGTH_SHORT).show();
-                    //or
-                    emailValidate.setError("Please Enter a valid Email.");
-                }
-            }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // other stuffs
-            }
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // other stuffs
-            }
-        });
-
-
-        final EditText passwordValidate = findViewById(R.id.password);
-        String password = emailValidate.getText().toString().trim();
-        String passwordPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-        Pattern patternPass = Pattern.compile(passwordPattern,Pattern.CASE_INSENSITIVE);
-
-
-
-        emailValidate .addTextChangedListener(new TextWatcher() {
-            public void afterTextChanged(Editable s) {
-
-                if (pattern.matcher(s).matches() && s.length() > 0)
-                {
-
-                    //Toast.makeText(getApplicationContext(),"valid email address",Toast.LENGTH_SHORT).show();
-                    emailValidate.setError(null);
-                    emailValidate.setFocusable(true);
-                    btn_login.setEnabled(true);
-                }
-                else
-                {
-                    btn_login.setEnabled(false);
-                    // Toast.makeText(getApplicationContext(),"Invalid email address",Toast.LENGTH_SHORT).show();
-                    //or
-                    emailValidate.setError("Please Enter a valid Email.");
-                }
-            }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // other stuffs
-            }
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // other stuffs
-            }
-        });*/
-
+        loginUrl = this.getResources().getString(R.string.baseUrl);
 
         email.addTextChangedListener(new TextWatcher() {
             @Override
@@ -200,12 +142,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
 
-        // if password does not matches to the pattern
-        // it will display an error message "Password is too weak"
-        /*else if (!PASSWORD_PATTERN.matcher(passwordInput).matches()) {
-            password.setError("Password is too weak");
-            return false;
-        }*/ else {
+    else {
             password.setError(null);
             return true;
         }
@@ -216,21 +153,14 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        // if the email and password matches, a toast message
-        // with email and password is displayed
-        /*String input = "Email: " + email.getText().toString();
-        input += "\n";
-        input += "Password: " + password.getText().toString();
-        Toast.makeText(this, input, Toast.LENGTH_SHORT).show();*/
+
     }
-
-
-
 
 
     public void login(View view) {
        Intent intent = new Intent(MainActivity.this,NewsActivity.class);
         startActivity(intent);
+       // postLoginData();
     }
 
     public void openSignUp(View view) {
@@ -275,4 +205,54 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this,ForgetPasswordActivity.class);
         startActivity(intent);
     }
+    //Json data
+
+    /*public void postLoginData(){
+        final ProgressDialog loading = new ProgressDialog(MainActivity.this, R.style.AppCompatAlertDialogStyle);
+        loading.setMessage("Please Wait...");
+        loading.setCanceledOnTouchOutside(false);
+        loading.show();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("UserName",email.getText().toString());
+            jsonObject.put("Password",password.getText().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, loginUrl+"api/auth/login", jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+               loading.dismiss();
+                try {
+                   *//* String error = response.getString("httpStatus");
+                    if(error.equals("")||error.equals(null)){
+
+                    }else if(error.equals("OK")){*//*
+                    JSONObject userDetails = response.getJSONObject("user");
+                       if(!response.getString("token").equals(null) && userDetails.getString("username").equals(email.getText().toString())){
+                           Intent intent = new Intent(MainActivity.this,NewsActivity.class);
+                           startActivity(intent);
+                       }
+                       else{
+                           Log.d("username ","Username or password problem");
+                       }
+
+                } catch (JSONException e) {
+                    loading.dismiss();
+                    e.printStackTrace();
+                    Log.d("Error Login ","Error in reponse");
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loading.dismiss();
+            //Log.d("Error ",error.getMessage());
+                Toast.makeText(getApplicationContext(),"Invalid Username and Password",Toast.LENGTH_LONG).show();
+            }
+        });
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        queue.add(jsonObjectRequest);
+    }*/
 }

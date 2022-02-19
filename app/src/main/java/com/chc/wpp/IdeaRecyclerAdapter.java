@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.mlkit.nl.languageid.LanguageIdentification;
 import com.google.mlkit.nl.languageid.LanguageIdentifier;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -69,7 +70,8 @@ public class IdeaRecyclerAdapter extends RecyclerView.Adapter<IdeaRecyclerAdapte
                                 System.out.println("Failure Listiner");
                             }
                         });
-       holder.profilePhoto.setImageResource(R.drawable.anwari);
+        Picasso.get().load(idea.getProfilePhoto()).into(holder.profilePhoto);
+       //holder.profilePhoto.setImageResource(R.drawable.anwari);
        holder.userName.setText(idea.getUserName());
        holder.date.setText(String.valueOf(idea.getPostDate()));
        holder.ideaPost.setText(idea.getIdeaPost());

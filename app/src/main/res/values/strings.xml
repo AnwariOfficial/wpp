@@ -306,4 +306,6 @@ It was reported last week that the Taliban was unable to get its hands on $10 bi
     <string name="d_gellary">ګالری</string>
     <string name="e_gellary">Gellary</string>
 
+    <string name="baseUrl">https://192.168.137.11:44376/</string>
+
 </resources>

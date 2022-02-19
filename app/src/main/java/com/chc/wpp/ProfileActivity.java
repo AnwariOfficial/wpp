@@ -48,7 +48,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             List<Idea> newsList = new ArrayList<>();
 
-            Idea idea1 = new Idea();
+            /*Idea idea1 = new Idea();
             idea1.setProfilePhoto(R.drawable.anwari);
             idea1.setUserName("Najibullah Anwari");
              date = Calendar.getInstance().getTime();
@@ -79,7 +79,7 @@ public class ProfileActivity extends AppCompatActivity {
             newsList.add(idea2);
             newsList.add(idea3);
             newsList.add(idea1);
-
+*/
             RecyclerView recyclerView = findViewById(R.id.recentIdeasRecyclerView);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             adapter = new ProfileRecyclerAdapter(this, newsList);

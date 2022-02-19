@@ -17,7 +17,7 @@
         app:navigationIcon="@color/pink"/>
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_gravity="right"
-        android:id="@+id/imageView"
+        android:id="@+id/profileImage"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginTop="8dp"

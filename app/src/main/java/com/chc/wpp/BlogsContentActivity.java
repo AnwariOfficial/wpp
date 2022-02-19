@@ -4,14 +4,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.navigation.NavigationView;
 import com.google.mlkit.nl.languageid.LanguageIdentification;
 import com.google.mlkit.nl.languageid.LanguageIdentifier;
 
@@ -28,12 +36,12 @@ public class BlogsContentActivity extends AppCompatActivity {
         String language = sharedPref.getString(getString(R.string.language), defaultValue);
         //super.onCreate(savedInstanceState);
         if(language.equals("pashto")){
-            setContentView(R.layout.pashto_activity_news_content);
+            setContentView(R.layout.pashto_blog_content_navigation);
         }else if (language.equals("dari")){
-            setContentView(R.layout.dari_activity_news_content);
+            setContentView(R.layout.dari_blog_content_navigation);
         }
         else{
-            setContentView(R.layout.english_activity_blogs_content);
+            setContentView(R.layout.english_blog_content_navigation);
         }
        // setContentView(R.layout.english_activity_news_content);
 
@@ -45,6 +53,52 @@ public class BlogsContentActivity extends AppCompatActivity {
         String title = intent.getStringExtra("title");
         String content = intent.getStringExtra("content");
         int image = intent.getIntExtra("image",0);
+
+
+
+        Toolbar toolbar = findViewById(R.id.toolBar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        DrawerLayout drawerLayout = findViewById(R.id.navigation_layout);
+
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.stopen, R.string.stclose);
+        actionBarDrawerToggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.yellow));
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if(item.getItemId() == R.id.home){
+                    Intent intent = new Intent(BlogsContentActivity.this,NewsActivity.class);
+                    startActivity(intent);
+                }
+                else if(item.getItemId() == R.id.idea){
+                    Intent intent = new Intent(BlogsContentActivity.this,IdeasActivity.class);
+                    intent.putExtra("flag",true);
+                    startActivity(intent);
+                }
+                else if(item.getItemId() == R.id.entertainment){
+                    Intent intent = new Intent(BlogsContentActivity.this,EntertainmentActivity.class);
+                    startActivity(intent);
+                }
+                else if(item.getItemId() == R.id.about){
+                    Intent intent = new Intent(BlogsContentActivity.this,AboutActivity.class);
+                    startActivity(intent);
+                }
+                else if(item.getItemId() == R.id.survey){
+                    Intent intent = new Intent(BlogsContentActivity.this,SurveysActivity.class);
+                    startActivity(intent);
+                }
+                else if(item.getItemId() == R.id.logout){
+                    Intent intent = new Intent(BlogsContentActivity.this,MainActivity.class);
+                    startActivity(intent);
+                }
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
 
         LanguageIdentifier languageIdentifier =
                 LanguageIdentification.getClient();
@@ -82,5 +136,31 @@ public class BlogsContentActivity extends AppCompatActivity {
         newsContent.setText(content);
         newsImage.setImageResource(image);
 
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        sharedPref = getSharedPreferences("languagePref",Context.MODE_PRIVATE);
+        String defaultValue = getResources().getString(R.string.defautllanguage);
+        String language = sharedPref.getString(getString(R.string.language), defaultValue);
+        if(language.equals("pashto")){
+            getMenuInflater().inflate(R.menu.p_back_menu, menu);
+        }else if (language.equals("dari")){
+            getMenuInflater().inflate(R.menu.p_back_menu, menu);
+        }
+        else{
+            getMenuInflater().inflate(R.menu.back_menu, menu);
+        }
+
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_back:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

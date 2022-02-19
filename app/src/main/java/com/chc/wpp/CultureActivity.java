@@ -1,8 +1,10 @@
 package com.chc.wpp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
@@ -46,6 +48,38 @@ public class CultureActivity extends AppCompatActivity {
         actionBarDrawerToggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.yellow));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if(item.getItemId() == R.id.home){
+                    Intent intent = new Intent(CultureActivity.this,NewsActivity.class);
+                    startActivity(intent);
+                }
+                else if(item.getItemId() == R.id.idea){
+                    Intent intent = new Intent(CultureActivity.this,IdeasActivity.class);
+                    intent.putExtra("flag",true);
+                    startActivity(intent);
+                }
+                else if(item.getItemId() == R.id.entertainment){
+                    Intent intent = new Intent(CultureActivity.this,EntertainmentActivity.class);
+                    startActivity(intent);
+                }
+                else if(item.getItemId() == R.id.about){
+                    Intent intent = new Intent(CultureActivity.this,AboutActivity.class);
+                    startActivity(intent);
+                }
+                else if(item.getItemId() == R.id.survey){
+                    Intent intent = new Intent(CultureActivity.this,SurveysActivity.class);
+                    startActivity(intent);
+                }
+                else if(item.getItemId() == R.id.logout){
+                    Intent intent = new Intent(CultureActivity.this,MainActivity.class);
+                    startActivity(intent);
+                }
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

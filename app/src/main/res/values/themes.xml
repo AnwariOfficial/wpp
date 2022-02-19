@@ -29,4 +29,10 @@
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_height">10dp</item>
     </style>
+
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/pink</item>
+        <item name="android:textColorPrimary">@color/yellow</item>
+        <item name="android:background">@color/dark_blue</item>
+    </style>
 </resources>

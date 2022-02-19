@@ -1,12 +1,15 @@
 package com.chc.wpp;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -17,19 +20,38 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.mlkit.nl.languageid.LanguageIdentification;
 import com.google.mlkit.nl.languageid.LanguageIdentifier;
+import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
 public class NewsActivity extends AppCompatActivity implements NewsRecyclerAdapter.ItemClickListener{
     SharedPreferences sharedPref;
     NewsRecyclerAdapter adapter;
+    String url ;
+    List<News> newsList;
+    RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +68,9 @@ public class NewsActivity extends AppCompatActivity implements NewsRecyclerAdapt
         else{
             setContentView(R.layout.english_navigation_layout);
         }
+
+        url = getResources().getString(R.string.baseUrl);
+
         //setContentView(R.layout.english_navigation_layout);
         Toolbar toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
@@ -91,45 +116,106 @@ public class NewsActivity extends AppCompatActivity implements NewsRecyclerAdapt
                 return true;
             }
         });
+        newsList = new ArrayList<>();
+
+        /*final ProgressDialog loading = new ProgressDialog(NewsActivity.this, R.style.AppCompatAlertDialogStyle);
+        loading.setMessage("Please Wait...");
+        loading.setCanceledOnTouchOutside(false);
+        loading.show();
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url+"api/home/GetNews/en/1", null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        loading.dismiss();
+                        try {
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject jsonIdea = response.getJSONObject(i);
+                                News news = new News();
+                                news.setNews_content(jsonIdea.getString("description"));
+                                //Picasso.get().load(profileImageUrl).into(profileImage);
+                                news.setNews_image(jsonIdea.getString("picUrl"));
+                                news.setNews_title(jsonIdea.getString("title"));
+                                newsList.add(news);
+                                Log.d("Information", news.getNews_content());
+                            }
 
 
+                        } catch (JSONException  e) {
+                            e.printStackTrace();
+
+                            loading.dismiss();
+                            Toast.makeText(getApplicationContext(),"Interal Error Occur.. ",Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+               // Log.d("Volley Error",error.getMessage());
+             //   Log.d("news_Error",error.getMessage() ) ;
+                error.printStackTrace();
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(),"Interal ResponseError Occur.. ",Toast.LENGTH_LONG).show();
+            }
+        });
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                5000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(request);
+
+*/
         // data to populate the RecyclerView with
-        ArrayList<News> animalNames = new ArrayList<>();
+
         News n1 = new News();
+        n1.setNews_title(getResources().getString(R.string.heading1));
         n1.setNews_content(getResources().getString(R.string.news1));
         n1.setNews_image(R.drawable.image1);
-        n1.setNews_title(getResources().getString(R.string.heading1));
 
         News n2 = new News();
+        n2.setNews_title(getResources().getString(R.string.heading2));
         n2.setNews_content(getResources().getString(R.string.news2));
         n2.setNews_image(R.drawable.image2);
-        n2.setNews_title(getResources().getString(R.string.heading2));
+
         News n3 = new News();
+        n3.setNews_title(getResources().getString(R.string.heading3));
         n3.setNews_content(getResources().getString(R.string.news3));
         n3.setNews_image(R.drawable.image3);
-        n3.setNews_title(getResources().getString(R.string.heading3));
+
         News n4 = new News();
+        n4.setNews_title(getResources().getString(R.string.heading4));
         n4.setNews_content(getResources().getString(R.string.news4));
         n4.setNews_image(R.drawable.image4);
-        n4.setNews_title(getResources().getString(R.string.heading4));
 
         News n5 = new News();
+        n5.setNews_title(getResources().getString(R.string.heading5));
         n5.setNews_content(getResources().getString(R.string.news5));
         n5.setNews_image(R.drawable.image5);
-        n5.setNews_title(getResources().getString(R.string.heading5));
-        List<News> newsList = new ArrayList<>();
+
+        News n6 = new News();
+        n6.setNews_title(getResources().getString(R.string.heading4));
+        n6.setNews_content(getResources().getString(R.string.news3));
+        n6.setNews_image(R.drawable.image6);
+
+
         newsList.add(n1);
         newsList.add(n2);
         newsList.add(n3);
         newsList.add(n4);
         newsList.add(n5);
+        newsList.add(n6);
 
         // set up the RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.rvAnimals);
+        recyclerView = findViewById(R.id.rvAnimals);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new NewsRecyclerAdapter(this, newsList);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
+
 
     }
 
@@ -180,4 +266,51 @@ public class NewsActivity extends AppCompatActivity implements NewsRecyclerAdapt
         Intent intent = new Intent(NewsActivity.this,ProfileActivity.class);
         startActivity(intent);
     }
+   /* public void getNews() {
+        final ProgressDialog loading = new ProgressDialog(NewsActivity.this, R.style.AppCompatAlertDialogStyle);
+        loading.setMessage("Please Wait...");
+        loading.setCanceledOnTouchOutside(false);
+        loading.show();
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        loading.dismiss();
+                        try {
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject jsonIdea = response.getJSONObject(i);
+                                News news = new News();
+                                news.setNews_content(jsonIdea.getString("description"));
+                                //Picasso.get().load(profileImageUrl).into(profileImage);
+                                news.setNews_image(jsonIdea.getString("picUrl"));
+                                news.setNews_title(jsonIdea.getString("title"));
+                                animalNames.add(news);
+                                Log.d("Information", news.getNews_content());
+                            }
+
+
+
+
+                        } catch (JSONException  e) {
+                            e.printStackTrace();
+                            loading.dismiss();
+                            Toast.makeText(getApplicationContext(),"Interal Error Occur.. ",Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Volley Error",error.getMessage());
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(),"Interal Error Occur.. ",Toast.LENGTH_LONG).show();
+            }
+        });
+        queue.add(request);
+
+    }*/
 }

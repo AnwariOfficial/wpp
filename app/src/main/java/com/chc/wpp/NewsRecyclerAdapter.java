@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.mlkit.nl.languageid.LanguageIdentification;
 import com.google.mlkit.nl.languageid.LanguageIdentifier;
+import com.squareup.picasso.Picasso;
 
 import java.text.Bidi;
 import java.util.List;
@@ -29,6 +30,7 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
     NewsRecyclerAdapter(Context context, List<News> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
+     //   System.out.println("Data set------------------------------------------>");
     }
 
     // inflates the row layout from xml when needed
@@ -45,7 +47,10 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         News news = mData.get(position);
         holder.myTextView.setText(news.getNews_title());
-        holder.newsImage.setImageResource(news.getNews_image());
+        System.out.println("------------------------------------->>>>>>>>");
+        System.out.println(news.getNews_content());
+       // holder.newsImage.setImageResource(news.getNews_image());
+        Picasso.get().load(news.getNews_image()).into(holder.newsImage);
         LanguageIdentifier languageIdentifier =
                 LanguageIdentification.getClient();
         languageIdentifier.identifyLanguage(news.getNews_content())

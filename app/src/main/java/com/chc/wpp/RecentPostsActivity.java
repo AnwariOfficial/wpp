@@ -9,27 +9,57 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RecentPostsActivity extends AppCompatActivity {
     IdeaRecyclerAdapter adapter;
     Date date;
     SharedPreferences sharedPref;
+    private String url;
+    List<Idea> newsList;
+    String profileImageUrl;
+    RecyclerView recyclerView;
+    CircleImageView profileImage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,46 +74,46 @@ public class RecentPostsActivity extends AppCompatActivity {
         actionBarDrawerToggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.yellow));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+            StrictMode.ThreadPolicy policy = new
+                    StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+
+        newsList = new ArrayList<>();
+        url = getResources().getString(R.string.baseUrl);
+        //getRecentPosts();
 
 
-        List<Idea> newsList = new ArrayList<>();
+         profileImage = findViewById(R.id.profileImage);
+         recyclerView = findViewById(R.id.recentIdeasRecyclerView);
+       // recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //adapter = new IdeaRecyclerAdapter(this, newsList);
+        //recyclerView.setAdapter(adapter);
 
-        Idea idea1 = new Idea();
-        idea1.setProfilePhoto(R.drawable.anwari);
-        idea1.setUserName("Najibullah Anwari");
-        Date date = Calendar.getInstance().getTime();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-        String strDate = dateFormat.format(date);
-        idea1.setPostDate(date);
 
-        idea1.setIdeaPost(getResources().getString(R.string.lgContentNews));
+        Idea i1 = new Idea();
+        i1.setUserName("Najibullah Anwari");
+        i1.setPostDate(new Date());
+        i1.setIdeaPost(getResources().getString(R.string.news4));
+        i1.setProfilePhoto(R.drawable.anwari);
 
-        Idea idea2 = new Idea();
-        idea2.setProfilePhoto(R.drawable.news_image);
-        idea2.setUserName("Rafiullah  Omar");
-         date = Calendar.getInstance().getTime();
-         dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-         strDate = dateFormat.format(date);
-        idea2.setPostDate(date);
-        idea2.setIdeaPost(getResources().getString(R.string.news_content));
+        Idea i2 = new Idea();
+        i2.setUserName("Ehsanullah Sadiq");
+        i2.setPostDate(new Date());
+        i2.setIdeaPost(getResources().getString(R.string.lgContentNews));
+        i2.setProfilePhoto(R.drawable.photo_placeholder);
 
-        Idea idea3 = new Idea();
-        idea3.setProfilePhoto(R.drawable.anwari);
-        idea3.setUserName("Noor Ahmad Ahmadzai");
-         date = Calendar.getInstance().getTime();
-         dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-         strDate = dateFormat.format(date);
-        idea3.setPostDate(date);
-        idea3.setIdeaPost(getResources().getString(R.string.lgContentNews));
-        newsList.add(idea1);
-        newsList.add(idea2);
-        newsList.add(idea3);
-        newsList.add(idea1);
+        Idea i3 = new Idea();
+        i3.setUserName("Rafiullah Omar");
+        i3.setPostDate(new Date());
+        i3.setIdeaPost(getResources().getString(R.string.news1));
+        i3.setProfilePhoto(R.drawable.profile);
 
-        RecyclerView recyclerView = findViewById(R.id.recentIdeasRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new IdeaRecyclerAdapter(this, newsList);
-        recyclerView.setAdapter(adapter);
+        newsList.add(i1);
+        newsList.add(i2);
+        newsList.add(i3);
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -113,6 +143,10 @@ public class RecentPostsActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        adapter = new IdeaRecyclerAdapter(getApplicationContext(), newsList);
+        recyclerView.setAdapter(adapter);
 
     }
     @Override
@@ -145,5 +179,60 @@ public class RecentPostsActivity extends AppCompatActivity {
         Intent intent = new Intent(RecentPostsActivity.this,ProfileActivity.class);
         startActivity(intent);
     }
+
+    //Fetching Data
+
+   /* // Get Request For JSONObject
+    public void getRecentPosts() {
+        final ProgressDialog loading = new ProgressDialog(RecentPostsActivity.this, R.style.AppCompatAlertDialogStyle);
+        loading.setMessage("Please Wait...");
+        loading.setCanceledOnTouchOutside(false);
+        loading.show();
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url+"api/home/GetIdea/1", null,
+                new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                loading.dismiss();
+                try {
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject jsonIdea = response.getJSONObject(i);
+                        Idea idea2 = new Idea();
+                        idea2.setProfilePhoto(jsonIdea.getString("userImage"));
+                        idea2.setUserName(jsonIdea.getString("name"));
+                        Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(jsonIdea.getString("postedDate"));
+                        idea2.setPostDate(date1);
+                        idea2.setIdeaPost(jsonIdea.getString("description"));
+                        profileImageUrl = jsonIdea.getString("userImage");
+                        newsList.add(idea2);
+                        Log.d("Information", idea2.getIdeaPost());
+                    }
+                    Picasso.get().load(profileImageUrl).into(profileImage);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    adapter = new IdeaRecyclerAdapter(getApplicationContext(), newsList);
+                    recyclerView.setAdapter(adapter);
+
+
+                } catch (JSONException | ParseException e) {
+                    e.printStackTrace();
+                    loading.dismiss();
+                    Toast.makeText(getApplicationContext(),"Error  "+e.getMessage(),Toast.LENGTH_LONG).show();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+             //   Log.d("Volley Error",error.getMessage());
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(),"Interal ResponseError Occur.. "+error.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
+        queue.add(request);
+
+    }*/
+
 
 }
